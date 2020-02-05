@@ -1,0 +1,30 @@
+kind: ServiceAccount
+apiVersion: v1
+metadata:
+  name: iam-eks-group-mapper
+  namespace: kube-system
+---
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: eks-aws-auth-configmap-modifier-role
+  namespace: kube-system
+rules:
+  - apiGroups: [""]
+    resources: ["configmaps"]
+    verbs: ["get", "update", "patch"]
+    resourceNames: ["aws-auth"]
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  namespace: kube-system
+  name: eks-aws-auth-configmap-modifier-rolebinding
+subjects:
+  - kind: ServiceAccount
+    name: iam-eks-group-mapper
+    namespace: kube-system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: eks-aws-auth-configmap-modifier-role

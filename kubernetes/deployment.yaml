@@ -1,0 +1,41 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  namespace: kube-system
+  name: iam-eks-group-mapper
+  labels:
+    app: iam-eks-group-mapper
+    version: v1
+spec:
+  selector:
+    matchLabels:
+      app: iam-eks-group-mapper
+      version: v1
+  template:
+    spec:
+      containers:
+        - name: deployment
+          image: ldoming/iam-eks-group-mapper:1.0.0
+          imagePullPolicy: Always
+          env:
+            - name: AWS_REGION
+              value: <Replace This>
+            - name: AWS_ACCESS_KEY_ID
+              value: <Replace This>
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: awsKey
+                  name: iam-eks-group-mapper-aws-secret
+          command:
+            - iam-eks-group-mapper.py
+            - --iam_groups
+            - admin;DeveloperCommon
+            - --kubernetes_roles
+            - system:masters;system:aggregate-to-view,system:basic-user
+      automountServiceAccountToken: true
+      serviceAccountName: iam-eks-group-mapper
+    metadata:
+      labels:
+        app: iam-eks-group-mapper
+        version: v1
