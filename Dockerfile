@@ -5,6 +5,7 @@ RUN curl -o aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/
 
 FROM python:3.9.0a3-alpine3.10
 RUN pip install boto3 \
+  python-ldap \
   pyyaml \
   kubernetes
 COPY src /src
