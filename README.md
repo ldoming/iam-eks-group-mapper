@@ -68,7 +68,7 @@ The model for AWS IAM Group to Kubernetes Role Mapping is as follows:
 
 An Example argument: 
 
-- `--role_arn arn:aws:iam::565284218568:role/AWSReservedSSO_AdministratorAccess_XXXXXXXXXXXXX`
+- `--role_arn arn:aws:iam::XXXXXXXXXXX:role/AWSReservedSSO_AdministratorAccess_XXXXXXXXXXXXX`
 - `--ldap_group devops`
 - `--kubernetes_roles system:masters`
 - `--sleep_time 120`
