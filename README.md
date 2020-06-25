@@ -23,9 +23,9 @@ The model for AWS IAM Group to Kubernetes Role Mapping is as follows:
 
 An Example argument: 
 
-`--iam_groups admin;devs`
-`--kubernetes_roles system:masters;system:aggregate-to-view,system:basic-user`
-`--sleep_time 120`
+- `--iam_groups admin;devs`
+- `--kubernetes_roles system:masters;system:aggregate-to-view,system:basic-user`
+- `--sleep_time 120`
 
 7) Finally:
 ```bash
@@ -45,13 +45,10 @@ Raise a PR or file an issue, I'd love to help!
 Credits to https://github.com/ygrene/iam-eks-user-mapper for ideas
 
 
-
-
 # ldap-eks-role-mapper
 
-
 ## Setting up in your environment:
-1) Have an AWS IAM Group with users that you want to have access to your EKS cluster
+1) Have an LDAP IAM Group with users that you want to have access to your EKS cluster
 (https://console.aws.amazon.com/iam/home?#/groups)
 2) Create a new IAM User with an IAM ReadOnly policy
 3) Replace the ACCESS_KEY_ID environment variable in `kubernetes/deployment.yaml` with your new generated user's access key id
@@ -71,10 +68,10 @@ The model for AWS IAM Group to Kubernetes Role Mapping is as follows:
 
 An Example argument: 
 
-`--role_arn arn:aws:iam::565284218568:role/AWSReservedSSO_AdministratorAccess_77b4790ba8ca2d2d`
-`--ldap_group devops`
-`--kubernetes_roles system:masters`
-`--sleep_time 120`
+- `--role_arn arn:aws:iam::565284218568:role/AWSReservedSSO_AdministratorAccess_XXXXXXXXXXXXX`
+- `--ldap_group devops`
+- `--kubernetes_roles system:masters`
+- `--sleep_time 120`
 
 7) Finally:
 ```bash
