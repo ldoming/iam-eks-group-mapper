@@ -182,7 +182,7 @@ def main():
   parser.add_argument('--role_arn', default='arn:aws:iam::565284218568:role/AWSReservedSSO_AdministratorAccess_77b4790ba8ca2d2d', help='Role ARN to map')
   parser.add_argument('--ldap_group', default='devops', help='LDAP group')
   parser.add_argument('--kubernetes_roles', default='system:masters', help='Kubernetes cluster roles')
-  parser.add_argument('--sleep_time', default=120, help='Time interval to refresh user mappings')
+  parser.add_argument('--sleep_time', default=180, help='Time interval to refresh user mappings')
   args = parser.parse_args()
   roleArn = args.role_arn.split(';')
   ldapGroup = args.ldap_group.split(';')
@@ -191,7 +191,7 @@ def main():
   while True:
     map_role_yaml_format(roleArn, k8sRoles, ldapGroup)
     log.info('Sleeping for {} seconds'.format(sleepTime))
-    time.sleep(sleepTime)
+    time.sleep(int(sleepTime))
 
 if __name__ == '__main__':
   main()

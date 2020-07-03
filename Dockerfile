@@ -4,10 +4,14 @@ RUN curl -o aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/
     && chmod +x ./aws-iam-authenticator
 
 FROM python:3.9.0a3-alpine3.10
-RUN pip install boto3 \
-  python-ldap \
-  pyyaml \
-  kubernetes
+RUN apk update \
+    && apk add --no-cache build-base \
+      openldap-dev \
+    && pip install --upgrade pip \
+      boto3 \
+      python-ldap \
+      pyyaml \
+      kubernetes
 COPY src /src
 COPY --from=builder /aws-iam-authenticator /usr/bin/
 ENV PATH=$PATH:/src

@@ -110,7 +110,7 @@ def main():
   while True:
     map_user_yaml_format(iamGroups, k8sRoles)
     log.info('Sleeping for {} seconds'.format(sleepTime))
-    time.sleep(sleepTime)
+    time.sleep(int(sleepTime))
 
 if __name__ == '__main__':
   main()
