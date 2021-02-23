@@ -1,5 +1,5 @@
 IMAGE       = iam-eks-group-mapper
-VERSION     = 2.0.0
+VERSION     = 3.0.0
 REPOSITORY ?= ldoming
 
 all: build push

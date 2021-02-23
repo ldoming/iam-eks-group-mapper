@@ -39,16 +39,19 @@ log.addHandler(handler_file)
 AD_USER_FILTER = '(&(objectClass=USER)(sAMAccountName={username}))'
 AD_USER_FILTER2 = '(&(objectClass=USER)(dn={userdn}))'
 AD_GROUP_FILTER = '(&(objectClass=GROUP)(cn={group_name}))'
-AD_SERVERS = [os.environ['AD_ADDRESS']]
-AD_BIND_USER = os.environ['AD_USERNAME']
-AD_BIND_PWD = os.environ['AD_PASSWORD']
-AD_USER_BASEDN = os.environ['AD_BASE_DN']
+AD_SERVERS = os.environ['AD_ADDRESS'] if os.getenv("AD_ADDRESS") is not None else ""
+AD_BIND_USER = os.environ['AD_USERNAME'] if os.getenv("AD_USERNAME") is not None else ""
+AD_BIND_PWD = os.environ['AD_PASSWORD'] if os.getenv("AD_PASSWORD") is not None else ""
+AD_USER_BASEDN = os.environ['AD_BASE_DN'] if os.getenv("AD_BASE_DN") is not None else ""
+PROTOCOL = "ldaps://" if os.getenv("IS_SECURE") is not None else "ldap://"
 
 iam = boto3.client('iam')
 
 # ldap connection
-def ad_auth(username=AD_BIND_USER, password=AD_BIND_PWD, address=AD_SERVERS[0]):
-  conn = ldap.initialize('ldaps://' + address)
+def ad_auth(username=AD_BIND_USER, password=AD_BIND_PWD, address=AD_SERVERS, protocol=PROTOCOL):
+  print(protocol + address)
+  exit()
+  conn = ldap.initialize(protocol + address)
   conn.set_option(ldap.OPT_X_TLS_REQUIRE_CERT, ldap.OPT_X_TLS_NEVER)
   conn.protocol_version = 3
   conn.set_option(ldap.OPT_REFERRALS, 0)
