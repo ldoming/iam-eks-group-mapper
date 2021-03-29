@@ -49,8 +49,6 @@ iam = boto3.client('iam')
 
 # ldap connection
 def ad_auth(username=AD_BIND_USER, password=AD_BIND_PWD, address=AD_SERVERS, protocol=PROTOCOL):
-  print(protocol + address)
-  exit()
   conn = ldap.initialize(protocol + address)
   conn.set_option(ldap.OPT_X_TLS_REQUIRE_CERT, ldap.OPT_X_TLS_NEVER)
   conn.protocol_version = 3
